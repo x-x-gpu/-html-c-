@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 学生管理系统</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-card">
+        <div class="auth-title">Register</div>
+        <form id="register-form" class="auth-form" onsubmit="handleRegisterPage(event)">
+            <div class="auth-field">
+                <label>用户名</label>
+                <input type="text" id="register-username" placeholder="请输入用户名" required>
+            </div>
+            <div class="auth-field">
+                <label>密码</label>
+                <input type="password" id="register-password" placeholder="请输入密码" required>
+            </div>
+            <div class="auth-field">
+                <label>管理员密码</label>
+                <input type="password" id="register-admin-password" placeholder="请输入管理员密码" required>
+            </div>
+            <button type="submit" class="auth-btn">Register</button>
+        </form>
+        <div class="auth-footer">
+            <span>已有账号？</span>
+            <a href="login.html">Back to login</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

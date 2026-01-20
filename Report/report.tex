@@ -1,0 +1,341 @@
+%!TeX program = xelatex
+\documentclass{SYSUReport}
+
+\usepackage{xcolor}    % 为了渲染颜色，需要使用 xcolor 包
+\usepackage{listings}  % 渲染代码块
+
+% 定义颜色
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% 定义 listings 风格，可以定义多个
+\lstdefinestyle{mystyle}{
+    % backgroundcolor=\color{backcolour},  % 背景色
+    commentstyle= \color{red!50!green!50!blue!50},  % 注释的颜色
+    keywordstyle= \color{blue!70},  % 关键字/程序语言中的保留字颜色
+    numberstyle=\tiny\color{codegray},  % 左侧行号显示的颜色
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,  % 对过长的代码自动换行
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,  % 在左侧显示行号
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,  % 不显示字符串中的空格
+    showtabs=false,
+    tabsize=2,
+    frame=single  % [none | single | shadowbox] 显示边框
+}
+
+\lstdefinelanguage{lua}{
+  keywords={and, break, do, else, elseif, end, false, for, function, if, in, local, nil, not, or, repeat, return, then, true, until, while},
+  sensitive=true,
+  comment=[l]{--},    % 单行注释
+  comment=[s]{--[[}{]]}, % 多行注释
+  string=[b]{"},      % 字符串定界符
+  string=[b]{'},      % 单引号字符串
+  identifierstyle=\color{blue!90!black},
+  keywordstyle=\color{purple!80!black}\bfseries,
+  commentstyle=\color{green!60!black}\itshape,
+  stringstyle=\color{red!80!black},
+}
+
+\lstset{style=mystyle}  % 使用 listings 风格
+
+\usepackage{pdfpages}
+\usepackage{subcaption}
+\usepackage{graphicx}  % Added for image inclusion
+\usepackage{float}     % Added for [H] figure placement
+\usepackage{dirtree}   % Added for tree diagram
+
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{booktabs} % 用于更美观的表格线（\toprule/\midrule/\bottomrule）
+\usepackage{tabularx}
+
+% =============================================
+% 个人信息设置
+% =============================================
+\headl{C++高级程序设计} % 对应课程性质
+\headc{期末课程设计}
+\headr{2025.12}
+\lessonTitle{C++高级程序设计}
+\reportTitle{基于html前端与c++后端的学院学生管理系统设计与实现}
+\stuname{肖伟文}     % 请修改为您的大名
+\stuid{24305079}  % 请修改为您的学号
+\inst{智能工程学院} % 请修改为您的学院
+\major{智能科学与技术} % 请修改为您的专业
+\date{\today}
+
+\begin{document}
+
+% =============================================
+% Part 1: 封面
+% =============================================
+\cover
+\thispagestyle{empty}
+\clearpage
+
+% =============================================
+% Part 2： 摘要
+% =============================================
+\begin{abstract}
+
+本报告介绍了一个基于 HTML 前端与 C++ 后端的学院学生管理系统的设计与实现。系统以分层架构为基础，前端负责交互与展示，后端使用 C++ 实现业务逻辑与数据持久化（基于 JSON 文件存储），并通过轻量级 HTTP 库对外提供 RESTful 接口。本文阐述了系统需求、总体设计、关键模块（学生、课程、用户）的数据模型与接口，重点讨论了服务层与 DAO 层的职责划分、路由统一注册及异常处理策略。实现部分包含路由设计示例、数据加载/保存流程与并发控制方案；在功能验证中展示了用户登录、学生信息 CRUD、课程管理与文件上传等主要用例。最后对系统的性能、可扩展性和后续改进（如引入数据库、权限控制与单元测试）进行了总结与展望。
+
+\textbf{关键词：} 学生管理系统；C++ 后端；HTML 前端；RESTful；JSON 持久化
+
+\end{abstract}
+\thispagestyle{empty}
+\clearpage
+
+% =============================================
+% Part 3： 目录页
+% =============================================
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\tableofcontents
+\clearpage
+
+% =============================================
+% Part 4： 正文内容
+% =============================================
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{引言}
+
+在小学时期，像是C++程序设计入门这样的书籍就已经广泛出现在书店以及图书馆中。而书中的最后一个章节往往就是让读者们设计一个简单的学生管理系统或是图书管理系统，其实现往往是一个命令行的黑框，将功能与ui都一起写在同一个程序里面。ui上列举着程序实现的每个功能，以1，2，...来分隔，让用户输入一个个字符或是字符串来决定程序的走向。
+
+那时，大家常常爱好用这样的文字交互的方式来编写一款款小游戏，来使枯燥的集训生活获得一些心灵上的慰藉，同时也是展示自己简单编程能力的一个途径。那时大家主要学习的内容是算法，大家最多也就搭一个博客网站，也没有什么人会使用winapi之类的东西去做图形化页面。大家一般都是一个黑框，一个个分支走向不同的游戏结局，或者积攒金币来打怪兽，诸如此类。
+
+如果刚好有一个机会，让人能学习一些超过黑框的知识，那无疑是非常好的。借用这个机会，我正好了解了一些我从未了解的web编程，或是通信框架的知识。感谢这门课，感谢老师和助教们，让我有机会学习到这些知识并学以致用。
+
+\newpage
+
+\section{基本要求的完成}
+
+\begin{itemize}
+    \item 代码750行+，给出简单注释
+    
+    显然这个项目的代码还是很多的（虽然很多都是重复的，CRUD之类），在我经常忘记的地方也写上了注释。
+
+    后端1800行左右，命令行前端400行左右，html+css+js就很多了，大概1800行左右，这是因为js文件有辅助的缘故（毕竟网页端功能多一点），不过html的代码行数应该是不记的。
+
+    \item 定义类型Classxx
+    
+    在Course, Student, User文件夹中很多了。
+
+    \item 数据成员包含指针
+
+    在各大Service层中均有指针成员。
+
+    \item 定义构造函数，复制构造函数，运算符重载
+
+    在BaseEntity类中均有定义。
+
+    \item 静态成员，友元，动态内存分配
+
+    静态成员和友元函数在BaseEntity类中有定义，动态内存分配姑且认为是STL容器的使用了。
+
+    \item 继承派生，虚基类，虚函数
+
+    Course, Student类虚继承自BaseEntity类，BaseEntity类中有虚函数。
+
+    \item 便用STL.要求用到容器、函数、算法（查找，排序等），模板
+    
+    DAO层使用了vector, map混合存储法，template在Result.cpp和http\_helper.cpp中大量使用。
+
+    \item 文件读取与存储
+
+    所有DAO层均有文件读取与存储的功能，使用JSON文件存储数据。
+\end{itemize}
+
+\newpage
+
+\section{系统版面}
+
+\begin{figure}[H]
+    \centering
+    \subfigure
+    {
+        \begin{minipage}[b]{.45\linewidth}
+            \centering
+            \includegraphics[scale=0.5]{images/frontend1.png}
+        \end{minipage}
+    }
+    \hspace{0.3cm}
+    \subfigure
+    {
+        \begin{minipage}[b]{.45\linewidth}
+            \centering
+            \includegraphics[scale=0.5]{images/frontend2.png}
+        \end{minipage}
+    }
+    \caption{命令行前端界面展示}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfigure
+    {
+        \begin{minipage}[b]{.45\linewidth}
+            \centering
+            \includegraphics[scale=0.5]{images/backend1.png}
+        \end{minipage}
+    }
+    \hspace{0.3cm}
+    \subfigure
+    {
+        \begin{minipage}[b]{.45\linewidth}
+            \centering
+            \includegraphics[scale=0.5]{images/backend2.png}
+        \end{minipage}
+    }
+    \caption{命令行前端界面展示}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.2]{images/html_frontend.png}
+    \caption{html前端展示图}
+\end{figure}
+
+\newpage
+
+\begin{figure}[H]
+    \centering
+    \subfigure
+    {
+        \begin{minipage}[b]{.45\linewidth}
+            \centering
+            \includegraphics[scale=0.5]{images/login.png}
+        \end{minipage}
+    }
+    \hspace{0.3cm}
+    \subfigure
+    {
+        \begin{minipage}[b]{.45\linewidth}
+            \centering
+            \includegraphics[scale=0.5]{images/register.png}
+        \end{minipage}
+    }
+    \caption{html前端登陆注册界面展示}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{images/student.png}
+    \caption{学生信息分析图}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{images/course.png}
+    \caption{课程信息展示图}
+\end{figure}
+
+\newpage
+
+\section{设计思路}
+
+\subsection{系统架构}
+
+本系统采用前后端分离的架构设计，前端使用HTML、CSS和JavaScript构建用户界面，后端使用C++实现业务逻辑和数据处理。前端通过HTTP请求与后端进行通信，后端提供RESTful API接口供前端调用。
+后端系统采用分层架构设计，主要包括以下几个层次：
+\begin{itemize}
+    \item 控制器层（Controller Layer）：负责处理来自前端的HTTP请求，调用相应的服务层方法，并将结果返回给前端。
+    \item 服务层（Service Layer）：封装业务逻辑，处理具体的业务需求，如学生信息管理、课程信息管理等。服务层调用数据访问层进行数据操作。
+    \item 数据访问层（DAO Layer）：负责与数据存储进行交互，提供数据的增删改查功能。数据存储采用JSON文件进行持久化。
+    \item 实体层（Entity Layer）：定义系统中的主要数据模型，如学生、课程和用户等。
+\end{itemize}
+
+注：控制器层依赖httplib.h库实现HTTP服务器功能，通信借助JSON类型数据，依赖nlohmann/json库；数据访问层本来想用SQLite数据库，但由于时间关系，最终采用JSON文件存储数据。
+
+\subsection{UML图}
+
+系统的UML图如下所示：
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{uml/class.png}
+    \caption{类图}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.35]{uml/example.png}
+    \caption{实例图}
+\end{figure}
+
+
+\newpage
+
+\section{结果}
+
+代码中成功实现用户注册、登录功能，学生信息的增删改查功能，课程信息的增删改查功能，以及文件上传功能。通过前端页面可以直观地进行各项操作，后端能够正确处理请求并返回相应的数据。
+
+具体使用可见readme.md文件，设计思路可见design.md，api.md文件。
+
+以下是项目文件夹架构树状图：
+
+\begin{figure}[H]
+    \centering
+    \dirtree{%
+    .1 core/.
+    .2 Report/.
+    .3 report.tex.
+    .2 Backend/.
+    .3 Controller/.
+    .4 UserController.cpp.
+    .4 StudentController.cpp.
+    .4 CourseController.cpp.
+    .3 Service/.
+    .4 UserService.cpp.
+    .4 StudentService.cpp.
+    .4 CourseService.cpp.
+    .3 DAO/.
+    .4 UserDAO.cpp.
+    .4 StudentDAO.cpp.
+    .4 CourseDAO.cpp.
+    .3 Entity/.
+    .4 BaseEntity.h.
+    .4 User.h.
+    .4 Student.h.
+    .4 Course.h.
+    .2 Frontend/.
+    .3 index.html.
+    .3 css/.
+    .4 styles.css.
+    .3 js/.
+    .4 app.js.
+    .4 login.js.
+    }
+    \caption{项目文件夹架构树状图}
+\end{figure}
+
+\newpage
+
+\section{总结与展望}
+
+通过本次课程设计，我深入理解了前后端分离的架构设计理念（B/S, C/S），掌握了C++在后端开发中的应用，熟悉了HTTP通信和RESTful API的设计方法。同时，我也提升了自己的编程能力和项目管理能力，学会了如何将理论知识应用于实际项目中。
+
+如果有时间改进该学生管理系统，我会增加更多功能，如权限管理、数据统计分析等。同时，我也希望能够学习更多关于数据库设计和优化的知识，将系统的数据存储从JSON文件迁移到关系型数据库（MYSQL）中，以提升系统的性能和可扩展性。
+
+通过与同学的交流，我发现我的路由头写的太复杂了，没有充分利用json数据的性质。并且模糊查找也并不一定需要使用LSH这样的复杂算法，跑一跑KMP也是可以的，不过目前的完成度是我能达到的极限了。
+
+本项目已上传至GitHub，欢迎访问和使用：https://github.com/x-x-gpu/Student-Management-System-with-c-and-html
+
+
+% =============================================
+% Part 5： 参考文献
+% =============================================
+\newpage
+\bibliographystyle{ieeetr}
+\bibliography{reference.bib}
+
+\end{document}

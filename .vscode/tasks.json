@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake Build (Ninja)",
+            "type": "shell",
+            // 调用 cmake --build 命令，这会自动触发 Ninja
+            "command": "cmake --build ${workspaceFolder}/build",
+            "group": {
+                "kind": "build",
+                "isDefault": true // 设置为默认生成任务，绑定 Ctrl+Shift+B
+            },
+            "problemMatcher": "$gcc", // 使用 gcc 的错误解析器
+            "detail": "使用 CMake 和 Ninja 编译前后端项目"
+        },
+        {
+            "label": "Clean Build Folder",
+            "type": "shell",
+            "command": "powershell -Command \"Remove-Item -Recurse -Force ${workspaceFolder}/build; mkdir ${workspaceFolder}/build\"",
+            "problemMatcher": []
+        }
+    ]
+}

@@ -1,0 +1,47 @@
+[
+    {
+        "age": "1",
+        "className": "1",
+        "gpa": 3.1999999999999997,
+        "id": "1",
+        "name": "1",
+        "scores": [
+            {
+                "course_id": "2",
+                "course_value": 2.0,
+                "score": 98.0
+            },
+            {
+                "course_id": "3",
+                "course_value": 4.0,
+                "score": 98.0
+            },
+            {
+                "course_id": "1",
+                "course_value": 8.0,
+                "score": 70.0
+            }
+        ],
+        "updatedBy": "1"
+    },
+    {
+        "age": "2",
+        "className": "2",
+        "gpa": 3.6666666666666665,
+        "id": "2",
+        "name": "2",
+        "scores": [
+            {
+                "course_id": "3",
+                "course_value": 4.0,
+                "score": 100.0
+            },
+            {
+                "course_id": "1",
+                "course_value": 8.0,
+                "score": 80.0
+            }
+        ],
+        "updatedBy": "admin"
+    }
+]

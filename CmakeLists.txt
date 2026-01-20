@@ -1,0 +1,57 @@
+cmake_minimum_required(VERSION 3.15)
+project(StudentSystem)
+
+# 1. 基础环境与全局输出路径
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+# 2. 公共宏定义与编译选项 (解决乱码与系统版本)
+if(WIN32)
+    add_definitions(-D_WIN32_WINNT=0x0A00)
+endif()
+
+# 全局 UTF-8 编码支持（对所有目标生效，实现对称）
+add_compile_options("$<$<CXX_COMPILER_ID:GNU>:-fexec-charset=UTF-8>")
+add_compile_options("$<$<CXX_COMPILER_ID:GNU>:-finput-charset=UTF-8>")
+
+# 3. 公共路径设置
+set(VCPKG_INCLUDE "D:/Scoop/apps/vcpkg/current/installed/x64-windows/include")
+set(VCPKG_LIB "D:/Scoop/apps/vcpkg/current/installed/x64-windows/lib")
+
+include_directories(
+    "Student"
+    "Course"
+    "User"
+    "D:/gcc/include"
+    "D:/gcc/x86_64-w64-mingw32/include"
+    ${VCPKG_INCLUDE}
+)
+link_directories(${VCPKG_LIB})
+
+# 4. 后端目标配置 (明确列出源码，防止互相包含)
+set(BACKEND_SOURCES 
+    "back_end.cpp"
+    "BaseEntity.cpp"
+    "Student/Student.cpp"
+    "Student/StudentDAO.cpp"
+    "Student/StudentService.cpp"
+    "Student/StudentController.cpp"
+    "Course/Course.cpp"
+    "Course/CourseDAO.cpp"
+    "Course/CourseService.cpp"
+    "Course/CourseController.cpp"
+    "User/User.cpp"
+    "User/UserDAO.cpp"
+    "User/UserService.cpp"
+    "User/UserController.cpp"
+)
+add_executable(back_end ${BACKEND_SOURCES})
+target_link_libraries(back_end sqlite3 ws2_32 crypt32)
+
+# 5. 前端目标配置 (对称地配置目标)
+add_executable(front_end "front_end.cpp")
+target_link_libraries(front_end sqlite3 ws2_32 crypt32)
+
+target_include_directories(front_end PRIVATE "${PROJECT_SOURCE_DIR}/Student")
+target_include_directories(front_end PRIVATE "${PROJECT_SOURCE_DIR}/Course")

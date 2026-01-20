@@ -1,0 +1,92 @@
+[
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\back_end.cpp.obj -c D:\\c++_OOP\\HW\\core\\back_end.cpp",
+  "file": "D:/c++_OOP/HW/core/back_end.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/back_end.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\BaseEntity.cpp.obj -c D:\\c++_OOP\\HW\\core\\BaseEntity.cpp",
+  "file": "D:/c++_OOP/HW/core/BaseEntity.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/BaseEntity.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\Student\\Student.cpp.obj -c D:\\c++_OOP\\HW\\core\\Student\\Student.cpp",
+  "file": "D:/c++_OOP/HW/core/Student/Student.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/Student/Student.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\Student\\StudentDAO.cpp.obj -c D:\\c++_OOP\\HW\\core\\Student\\StudentDAO.cpp",
+  "file": "D:/c++_OOP/HW/core/Student/StudentDAO.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/Student/StudentDAO.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\Student\\StudentService.cpp.obj -c D:\\c++_OOP\\HW\\core\\Student\\StudentService.cpp",
+  "file": "D:/c++_OOP/HW/core/Student/StudentService.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/Student/StudentService.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\Student\\StudentController.cpp.obj -c D:\\c++_OOP\\HW\\core\\Student\\StudentController.cpp",
+  "file": "D:/c++_OOP/HW/core/Student/StudentController.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/Student/StudentController.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\Course\\Course.cpp.obj -c D:\\c++_OOP\\HW\\core\\Course\\Course.cpp",
+  "file": "D:/c++_OOP/HW/core/Course/Course.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/Course/Course.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\Course\\CourseDAO.cpp.obj -c D:\\c++_OOP\\HW\\core\\Course\\CourseDAO.cpp",
+  "file": "D:/c++_OOP/HW/core/Course/CourseDAO.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/Course/CourseDAO.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\Course\\CourseService.cpp.obj -c D:\\c++_OOP\\HW\\core\\Course\\CourseService.cpp",
+  "file": "D:/c++_OOP/HW/core/Course/CourseService.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/Course/CourseService.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\Course\\CourseController.cpp.obj -c D:\\c++_OOP\\HW\\core\\Course\\CourseController.cpp",
+  "file": "D:/c++_OOP/HW/core/Course/CourseController.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/Course/CourseController.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\User\\User.cpp.obj -c D:\\c++_OOP\\HW\\core\\User\\User.cpp",
+  "file": "D:/c++_OOP/HW/core/User/User.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/User/User.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\User\\UserDAO.cpp.obj -c D:\\c++_OOP\\HW\\core\\User\\UserDAO.cpp",
+  "file": "D:/c++_OOP/HW/core/User/UserDAO.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/User/UserDAO.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\User\\UserService.cpp.obj -c D:\\c++_OOP\\HW\\core\\User\\UserService.cpp",
+  "file": "D:/c++_OOP/HW/core/User/UserService.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/User/UserService.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\back_end.dir\\User\\UserController.cpp.obj -c D:\\c++_OOP\\HW\\core\\User\\UserController.cpp",
+  "file": "D:/c++_OOP/HW/core/User/UserController.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir/User/UserController.cpp.obj"
+},
+{
+  "directory": "D:/c++_OOP/HW/core/build",
+  "command": "D:\\gcc\\bin\\g++.exe -D_WIN32_WINNT=0x0A00 -ID:/c++_OOP/HW/core/Student -ID:/c++_OOP/HW/core/Course -ID:/c++_OOP/HW/core/User -ID:/Scoop/apps/vcpkg/current/installed/x64-windows/include -g -std=gnu++14 -fexec-charset=UTF-8 -finput-charset=UTF-8 -o CMakeFiles\\front_end.dir\\front_end.cpp.obj -c D:\\c++_OOP\\HW\\core\\front_end.cpp",
+  "file": "D:/c++_OOP/HW/core/front_end.cpp",
+  "output": "D:/c++_OOP/HW/core/build/CMakeFiles/front_end.dir/front_end.cpp.obj"
+}
+]

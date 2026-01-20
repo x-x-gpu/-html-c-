@@ -1,0 +1,4 @@
+D:/c++_OOP/HW/core/build/CMakeFiles/back_end.dir
+D:/c++_OOP/HW/core/build/CMakeFiles/front_end.dir
+D:/c++_OOP/HW/core/build/CMakeFiles/edit_cache.dir
+D:/c++_OOP/HW/core/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,18 @@
+# ninja log v7
+15	2498	7905183498786636	CMakeFiles/back_end.dir/BaseEntity.cpp.obj	76e4628d7066ee7
+23	2705	7905183498866667	CMakeFiles/back_end.dir/Student/Student.cpp.obj	18123e532d8cc384
+39	2944	7905183499026666	CMakeFiles/back_end.dir/Student/StudentService.cpp.obj	2e5612604590ab3f
+31	5682	7905183498946634	CMakeFiles/back_end.dir/Student/StudentDAO.cpp.obj	1a9cf60c18f32f72
+147	16340	7905183500096634	CMakeFiles/front_end.dir/front_end.cpp.obj	71749b940b8beea3
+16340	31374	7905183662036237	D:/c++_OOP/HW/core/front_end.exe	7251cff65605e4b6
+5	12953	7905183498686655	CMakeFiles/back_end.dir/back_end.cpp.obj	63e96506dccc05c2
+48	15113	7905183499106650	CMakeFiles/back_end.dir/Student/StudentController.cpp.obj	9ceae6b9fe79ca96
+15113	61433	7905183649762638	D:/c++_OOP/HW/core/back_end.exe	abecdb7ffb276120
+58	2592	7905183499216636	CMakeFiles/back_end.dir/Course/Course.cpp.obj	df0f52e71de93837
+80	3081	7905183499426627	CMakeFiles/back_end.dir/Course/CourseService.cpp.obj	fdf1d515b46c881f
+68	5637	7905183499316638	CMakeFiles/back_end.dir/Course/CourseDAO.cpp.obj	5e9fd70013d6ee66
+91	15066	7905183499536765	CMakeFiles/back_end.dir/Course/CourseController.cpp.obj	e1adcdcae82c6846
+15	558	7904987315309966	CMakeFiles/back_end.dir/User/User.cpp.obj	cbd3350c15262a08
+116	2594	7905183499796665	CMakeFiles/back_end.dir/User/UserService.cpp.obj	947f93d3126c142f
+135	14143	7905183499986685	CMakeFiles/back_end.dir/User/UserController.cpp.obj	ca10902490683e90
+103	14510	7905183499656658	CMakeFiles/back_end.dir/User/UserDAO.cpp.obj	cfa20b3a7c9be04d

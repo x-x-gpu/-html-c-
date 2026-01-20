@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生管理系统 - Web版</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fas fa-user-graduate"></i>
+                <span>学生管理</span>
+            </div>
+            <nav class="nav">
+                <div class="nav-section">系统基础模块</div>
+                <a class="nav-item active" href="#" data-target="students-section">
+                    <i class="fas fa-layer-group"></i>
+                    <span>学生管理</span>
+                </a>
+                <a class="nav-item" href="#" data-target="courses-section">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>课程管理</span>
+                </a>
+                <div class="nav-section">拓展功能</div>
+                <a class="nav-item" href="#" data-target="user-section">
+                    <i class="fas fa-cogs"></i>
+                    <span>系统设置</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div class="main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn" type="button" aria-label="toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="page-title">学生管理系统</div>
+                </div>
+                <div class="topbar-right">
+                    <div class="server-status">
+                        服务器状态: <span id="status-indicator" class="offline">检测中...</span>
+                    </div>
+                    <div class="user-chip" id="user-chip">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="user-chip-name">未登录</span>
+                    </div>
+                    <button class="btn btn-secondary btn-logout" onclick="handleLogout()">退出登录</button>
+                </div>
+            </header>
+
+            <div class="content">
+                <section id="students-section" class="page-section">
+                    <div class="page-header">
+                        <div>
+                            <h2>学生数据</h2>
+                            <p>查看、添加、编辑学生信息</p>
+                        </div>
+                        <div class="header-actions">
+                            <button onclick="fetchAllStudents()" class="btn btn-secondary"><i class="fas fa-sync"></i> 刷新列表</button>
+                            <button onclick="fetchAllStudentsSorted()" class="btn btn-info"><i class="fas fa-sort"></i> GPA 排序</button>
+                            <button onclick="openStudentModal('add')" class="btn btn-primary"><i class="fas fa-plus"></i> 添加学生</button>
+                        </div>
+                    </div>
+
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <input type="text" id="search-input" placeholder="输入学生ID查找...">
+                            <button onclick="findStudent()" class="btn btn-info"><i class="fas fa-search"></i> 查找</button>
+                        </div>
+                        <div class="action-buttons">
+                            <button onclick="toggleCsvPanel()" class="btn btn-warning"><i class="fas fa-file-csv"></i> CSV 操作</button>
+                        </div>
+                    </div>
+
+                    <div id="csv-panel" class="csv-panel hidden">
+                        <h3>学生 CSV 导入/导出 (服务器端路径)</h3>
+                        <div class="csv-controls">
+                            <input type="text" id="csv-path" placeholder="例如: D:\\data.csv">
+                            <button onclick="importCSV()" class="btn btn-small">导入</button>
+                            <button onclick="exportCSV()" class="btn btn-small">导出</button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>姓名</th>
+                                    <th>年龄</th>
+                                    <th>班级</th>
+                                    <th>GPA</th>
+                                    <th>最后修改者</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-table-body"></tbody>
+                        </table>
+                        <div id="loading-spinner" class="spinner hidden"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>
+                        <div id="no-data-msg" class="empty-state hidden">暂无数据</div>
+                    </div>
+                </section>
+
+                <section id="courses-section" class="page-section hidden">
+                    <div class="page-header">
+                        <div>
+                            <h2>课程数据</h2>
+                            <p>查看、添加、编辑课程信息</p>
+                        </div>
+                        <div class="header-actions">
+                            <button onclick="fetchAllCourses()" class="btn btn-secondary"><i class="fas fa-sync"></i> 刷新列表</button>
+                            <button onclick="openCourseModal('add')" class="btn btn-primary"><i class="fas fa-plus"></i> 添加课程</button>
+                        </div>
+                    </div>
+
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <input type="text" id="course-search-input" placeholder="输入课程ID查找...">
+                            <button onclick="findCourse()" class="btn btn-info"><i class="fas fa-search"></i> 查找</button>
+                        </div>
+                        <div class="action-buttons">
+                            <button onclick="toggleCourseCsvPanel()" class="btn btn-warning"><i class="fas fa-file-csv"></i> 成绩 CSV</button>
+                        </div>
+                    </div>
+
+                    <div id="course-csv-panel" class="csv-panel hidden">
+                        <h3>课程成绩 CSV (服务器端路径)</h3>
+                        <div class="csv-controls grid">
+                            <input type="text" id="course-csv-id" placeholder="课程ID">
+                            <input type="text" id="course-csv-path" placeholder="例如: D:\\scores.csv">
+                            <button onclick="importCourseScoresCSV()" class="btn btn-small">导入</button>
+                            <button onclick="exportCourseScoresCSV()" class="btn btn-small">导出</button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>课程名</th>
+                                    <th>教师名</th>
+                                    <th>学分</th>
+                                    <th>成绩数量</th>
+                                    <th>最后修改者</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="course-table-body"></tbody>
+                        </table>
+                        <div id="course-loading-spinner" class="spinner hidden"><i class="fas fa-spinner fa-spin"></i> 加载中...</div>
+                        <div id="course-no-data-msg" class="empty-state hidden">暂无数据</div>
+                    </div>
+                </section>
+
+                <section id="user-section" class="page-section hidden">
+                    <div class="page-header">
+                        <div>
+                            <h2>系统设置</h2>
+                            <p>用户登录、注册与密码管理</p>
+                        </div>
+                    </div>
+
+                    <div class="form-card">
+                        <h3>更改密码</h3>
+                        <form id="change-password-form" onsubmit="handleChangePassword(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>用户名</label>
+                                    <input type="text" id="change-username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>新密码</label>
+                                    <input type="password" id="change-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>管理员密码</label>
+                                    <input type="password" id="change-admin-password" required>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">提交修改</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div id="student-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeStudentModal()">&times;</span>
+            <h2 id="student-modal-title">添加学生</h2>
+            <form id="student-form" onsubmit="handleStudentSubmit(event)">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" id="student-form-id" required>
+                </div>
+                <div class="form-group">
+                    <label>姓名</label>
+                    <input type="text" id="student-form-name" required>
+                </div>
+                <div class="form-group">
+                    <label>年龄</label>
+                    <input type="number" id="student-form-age" required>
+                </div>
+                <div class="form-group">
+                    <label>班级</label>
+                    <input type="text" id="student-form-class" required>
+                </div>
+                <input type="hidden" id="student-form-mode">
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" onclick="closeStudentModal()" class="btn btn-danger">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="course-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCourseModal()">&times;</span>
+            <h2 id="course-modal-title">添加课程</h2>
+            <form id="course-form" onsubmit="handleCourseSubmit(event)">
+                <div class="form-group">
+                    <label>课程ID</label>
+                    <input type="text" id="course-form-id" required>
+                </div>
+                <div class="form-group">
+                    <label>课程名</label>
+                    <input type="text" id="course-form-name" required>
+                </div>
+                <div class="form-group">
+                    <label>教师名</label>
+                    <input type="text" id="course-form-teacher" required>
+                </div>
+                <div class="form-group">
+                    <label>学分</label>
+                    <input type="number" step="0.1" id="course-form-value" required>
+                </div>
+                <input type="hidden" id="course-form-mode">
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" onclick="closeCourseModal()" class="btn btn-danger">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">操作成功</div>
+
+    <!-- 放在页面底部 modal 区域附近 -->
+    <div id="student-detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeStudentDetailModal()">&times;</span>
+            <h2>学生详细信息</h2>
+            <div id="student-detail-info" class="detail-info"></div>
+
+            <h3>成绩明细</h3>
+            <div id="student-detail-scores" class="detail-scores"></div>
+
+            <h3>成绩分布图</h3>
+            <div class="chart-wrap">
+                <canvas id="student-score-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

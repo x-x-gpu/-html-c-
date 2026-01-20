@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 学生管理系统</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-card">
+        <div class="auth-title">Login</div>
+        <form id="login-form" class="auth-form" onsubmit="handleLoginPage(event)">
+            <div class="auth-field">
+                <label>用户名</label>
+                <input type="text" id="login-username" placeholder="请输入用户名" required>
+            </div>
+            <div class="auth-field">
+                <label>密码</label>
+                <input type="password" id="login-password" placeholder="请输入密码" required>
+            </div>
+            <div class="auth-remember">
+                <label>
+                    <input type="checkbox" id="login-remember">
+                    保持登录
+                </label>
+            </div>
+            <button type="submit" class="auth-btn">Log In</button>
+        </form>
+        <div class="auth-footer">
+            <span>没有账号？</span>
+            <a href="register.html">Register</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
